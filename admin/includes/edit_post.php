@@ -1,33 +1,29 @@
 <?php
 
-if(isset($_POST['create_post'])){
+    if(isset($_GET['p_id'])){
 
- $post_title = $_POST['title'];
- $post_author = $_POST['author'];
- $post_category_id = $_POST['post_category_id'];
- $post_status = $_POST['post_status'];
+        $the_post_id = $_GET['p_id'];
+    };
 
- $post_image = $_FILES['image']['name'];
- $post_image_temp = $_FILES['image']['tmp_name'];
+    $query = "SELECT * FROM posts";
+    $select_posts_by_id = mysqli_query($connection,$query);
 
- $post_tags = $_POST['post_tags'];
- $post_content = $_POST['post_content'];
- $post_date = date('d-m-y');
- $post_comment_count = 4;
-
- move_uploaded_file($post_image_temp, "../images/$post_image");
-
- $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_image, post_content, post_tags, post_comment_count, post_status) ";
- $query .= "VALUES({$post_category_id}, '{$post_title}', '{$post_author}',now(), '{$post_image}', '{$post_image_temp}', '{$post_tags}', '{$post_comment_count}', '{$post_status}') ";
- 
- $create_post_query = mysqli_query($connection, $query);
-
- comfirmQuery($create_post_query);
-
-}
+    while($row = mysqli_fetch_assoc($select_posts_by_id)){
+        $post_id = $row['post_id'];
+        $post_author = $row['post_author'];
+        $post_title = $row['post_title'];
+        $post_category_id = $row['post_category_id'];
+        $post_status = $row['post_status'];
+        $post_image = $row['post_image'];
+        $post_tags = $row['post_tags'];
+        $post_comment_count = $row['post_comment_count'];
+        $post_date = $row['post_date'];
+    }
 
 
 ?>
+
+
 
 
 <form action="" method="post" enctype="multipart/form-data">    
@@ -45,7 +41,7 @@ if(isset($_POST['create_post'])){
 
         <div class="form-group">
             <label for="title">Post Author</label>
-            <input type="text" name="author" class="form-control">
+            <input value="<?php echo $post_author; ?>" type="text" name="author" class="form-control">
       </div>
 
       <div class="form-group">
