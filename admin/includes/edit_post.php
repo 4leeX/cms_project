@@ -3,7 +3,8 @@
     if(isset($_GET['p_id'])){
 
         $the_post_id = $_GET['p_id'];
-    };
+    }
+    
 
     $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
     $select_posts_by_id = mysqli_query($connection,$query);
@@ -21,6 +22,8 @@
         $post_date = $row['post_date'];
     }
 
+
+
     if(isset($_POST['update_post'])){
 
 
@@ -34,7 +37,17 @@
         $post_tags                = $_POST['post_tags'];
 
         move_uploaded_file($post_image_temp, "../images/$post_image");
-        
+
+        if(empty($post_image)){
+            $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
+            
+            $select_image = mysqli_query($connection,$query);
+
+            if($row = mysqli_fetch_array($select_image)) {
+                $post_image = $row['post_image'];
+            }
+        }
+
         $query = "UPDATE posts SET ";
         $query .= "post_title = '{$post_title}', ";
         $query .= "post_category_id = '{$post_category_id}', ";
@@ -46,20 +59,12 @@
         $query .= "post_image = '{$post_image}' ";
         $query .= "WHERE post_id = {$the_post_id} ";
 
-        if(empty($post_image)){
-            $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
-            
-            $select_image = mysqli_query($connection,$query);
-
-            while($row = mysqli_fetch_array($select_image)) {
-                $post_image = $row['post_image'];
-            }
-        }
-
 
         $update_post = mysqli_query($connection, $query);
 
         confirmQuery($update_post);
+
+        header("Location: posts.php");
 
     }
 
@@ -117,13 +122,29 @@
         <div class="form-group">
             <label for="title">Post Author</label>
             <input value="<?php echo $post_author; ?>" type="text" name="post_author" class="form-control">
-      </div>
+        </div>
 
-      <div class="form-group">
-            <label for="post_status">Post Status</label>
-            <input value="<?php echo $post_status; ?>" type="text" name="post_status" class="form-control">
-      </div>
-      
+        <div class="form-group">
+        <select name="post_status" id="">
+        
+            <option value='<?php echo $post_status ?>'><?php echo $post_status; ?></option>
+
+            <?php
+
+            if( $post_status == 'published'){
+
+                echo "<option value='draft'>Draft</option>";
+            }else{
+
+                echo "<option value='published'>Published</option>";
+            }
+
+
+            ?>
+        
+        </select>
+        </div>
+
       
       
       <div class="form-group">
