@@ -44,6 +44,8 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+
 </head>
 
 <body>
