@@ -33,10 +33,6 @@ $('#selectAllBoxes').click(function(event){
     //     $(this).remove();
     // });
 
-
-
-
-
-
-
 });
+
+

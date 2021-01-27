@@ -18,8 +18,9 @@
                            Welcome to admin
                             <small><?= $_SESSION['username']; ?></small>
                         </h1>
-                            
-                        </ol>
+                        
+                        
+
                     </div>
                 </div>
                 <!-- /.row -->
