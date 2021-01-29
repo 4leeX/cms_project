@@ -29,7 +29,6 @@ if(isset($_POST['edit_user'])){
 
     $user_firstname = $_POST['user_firstname'];
     $user_lastname = $_POST['user_lastname'];
-    $user_role = $_POST['user_role'];
    
    //  $post_image = $_FILES['image']['name'];
    //  $post_image_temp = $_FILES['image']['tmp_name'];
@@ -46,7 +45,6 @@ if(isset($_POST['edit_user'])){
     $query = "UPDATE user SET ";
     $query .= "user_firstname = '{$user_firstname}', ";
     $query .= "user_lastname = '{$user_lastname}', ";
-    $query .= "user_role ='{$user_role}', ";
     $query .= "username = '{$username}', ";
     $query .= "user_email = '{$user_email}', ";
     $query .= "user_password = '{$user_password}' ";
@@ -95,32 +93,6 @@ if(isset($_POST['edit_user'])){
             <input value="<?= $user_lastname ?>" type="text" name="user_lastname" class="form-control">
       </div>
 
-
-        <div class="form-group">
-            
-            <select name="user_role" id="">
-
-            <option value="subscriber"><?= $user_role ?></option>
-            <?php
-
-            if($user_role == 'admin'){
-                echo "<option value='subscriber'>subscriber</option>";
-            }else{
-                echo "<option value='admin'>admin</option>";
-            }
-
-            ?>
-              
-            </select>
-        
-        </div>
-
-      
-      <!-- <div class="form-group">
-        <label for="post_image">Post Image</label>
-        <input type="file"  name="image">
-      </div> -->
-
       <div class="form-group">
          <label for="post_tags">Username</label>
           <input value="<?= $username ?>" type="text" class="form-control" name="username">
@@ -133,7 +105,7 @@ if(isset($_POST['edit_user'])){
 
       <div class="form-group">
          <label for="post_content">Password</label>
-         <input value="<?= $user_password ?>" type="password" class="form-control" name="user_password">
+         <input autocomplete="off" type="password" class="form-control" name="user_password">
       </div>
       
       
